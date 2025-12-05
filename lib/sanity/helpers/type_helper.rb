@@ -5,12 +5,7 @@ module Sanity
     def self.default_type(klass)
       return nil if klass == Sanity::Document
 
-      type =
-        if klass.respond_to?(:document_type) && klass.document_type
-          klass.document_type.to_s
-        else
-          klass.to_s
-        end
+      type = (klass.try(:document_type) || klass).to_s
 
       type[0].downcase + type[1..]
     end
